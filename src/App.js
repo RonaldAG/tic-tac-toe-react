@@ -1,12 +1,21 @@
 import { useState } from "react";
 
 export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true)
   const [squares, setSquares] = useState(Array(9).fill(null));
   
   function handleClick(index) {
+    if (squares[index]) {
+      return;
+    }
     const nextSquares = squares.slice();
-    nextSquares[index] = "X";
-    setSquares(nextSquares);  
+    if (xIsNext) {
+      nextSquares[index] = "X";
+    } else {
+      nextSquares[index] = "O";
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext)  
   }
   
   return (
@@ -23,7 +32,7 @@ export default function Board() {
     </div>
     <div className="board-row">
       <Square value={squares[6]} onSquareClick={() => handleClick(6)}/>
-      <Square value={squares[7]} onSquareClick={() => handleClick(6)}/>
+      <Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
       <Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
     </div>
   </>
